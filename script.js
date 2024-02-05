@@ -30,19 +30,33 @@ function operator(a,b,operator) {
 }
 
 //division symbol ÷
-let operationtext = ''
+let operationtext = '';
+let operand = '';
 const operations = document.getElementById('operations');
+const result = document.getElementById('result');
 operations.innerHTML = operationtext;
 
 const buttons = document.querySelectorAll('button');
 buttons.forEach((button)=>{
     button.addEventListener('click',()=>
     {
-        if (button.className!='operator') {
+        if (button.className!='operator' && button.className !='terminator') {
             operationtext += button.value;
         }
-        else {
-            operationtext += ` ${button.value} `;
+        else if(button.value != '=' && button.className !='terminator' && 
+                operationtext.includes('%') == false && 
+                operationtext.includes('÷') == false &&
+                operationtext.includes('x') == false &&
+                operationtext.includes('-') == false &&
+                operationtext.includes('+') == false &&
+                operationtext.includes('=') == false ) {
+            operand = button.value;
+            operationtext += ` ${operand} `;
+        }
+        if (button.val = '=') {
+            if (operand == '') {
+
+            } 
         }
         operations.innerHTML = operationtext;
     });
