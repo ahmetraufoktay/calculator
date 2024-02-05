@@ -53,9 +53,10 @@ buttons.forEach((button)=>{
             operand = button.value;
             operationtext += ` ${operand} `;
         }
-        if (button.val = '=') {
+        if (button.value == '=') {
             if (operand == '') {
-
+                result.innerHTML = operationtext.replace('=','');
+                operationtext = '';
             } 
         }
         operations.innerHTML = operationtext;
