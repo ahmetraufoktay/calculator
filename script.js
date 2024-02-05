@@ -1,24 +1,24 @@
 function add(a, b) {
-    return Math.floor(a + b);
+    return Math.floor((+a + +b)*100)/100;
 }
 
 function subtract(a, b) {
-    return Math.floor(a - b);
+    return Math.floor((a - b)*100)/100;
 }
 
 function multiply(a, b) {
-    return Math.floor(a * b);
+    return Math.floor((a * b)*100)/100;
 }
 
 function divide(a, b) {
-    if (b === 0) {
+    if (b == 0) {
         return "ERR";
     }
     return Math.floor((a / b) * 100) / 100;
 }
 
 function mod(a, b) {
-    if (b === 0) {
+    if (b == 0) {
         return "ERR";
     }
     return Math.floor(a % b);
@@ -42,60 +42,76 @@ function operator(a, b, operator) {
     }
 }
 
-let operationText = '';
-let operand = '';
-let buttonPress = false;
-const operations = document.getElementById('operations');
+let numOne='',operand = '',numTwo='',equalSign = '';
+let operationText = ``; 
+let operatorState = 0;
+let resultText = '0';
+const operationDiv = document.getElementById('operations');
 const resultDiv = document.getElementById('result');
-let resultText = resultDiv.innerHTML;
-operations.innerHTML = operationText;
 
+resultDiv.innerHTML = resultText;
 const buttons = document.querySelectorAll('button');
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
-        function calculator() {
-            if (button.className !== 'operator' && button.className !== 'terminator') {
-                operationText += button.value;
-            } else if (
-                button.value !== '=' &&
-                button.className !== 'terminator' &&
-                !operationText.includes('%') &&
-                !operationText.includes('÷') &&
-                !operationText.includes('x') &&
-                !operationText.includes('-') &&
-                !operationText.includes('+') &&
-                !operationText.includes('=')
-            ) {
-                operand = button.value;
-                operationText += ` ${operand} `;
+        if (button.className == 'operator') {
+            operand = button.value;
+            if (operatorState>0) {
+                numOne = resultText;
+                numTwo = '';
             }
-            if (button.value === '=') {
-                operationText = operationText.replace('=', '');
-                let myValues = operationText.split(" ");
-                if (myValues.length <= 2) {
-                    resultText = '';
-                } else {
-                    let a = parseFloat(myValues[0]);
-                    let b = parseFloat(myValues[2]);
-                    let result = operator(a, b, operand);
-                    if (result !== undefined) {
-                        resultText = result;
+            operationText = `${numOne} ${operand} ${numTwo} ${equalSign}`;
+            operatorState++;
+        } else if (button.className != 'terminator') {
+            if (operand == '' && button.value != '=') {
+                numOne += button.value;
+                resultText = numOne;
+            } else if (button.value != '=') {
+                numTwo += button.value;
+                resultText = numTwo;
+                if (numTwo != '') {
+                    let result = operator(numOne,numTwo,operand);
+                    resultText = result;
+                }
+                operationText = `${numOne} ${operand} ${numTwo} ${equalSign}`;
+            }
+        } else if(button.className == 'terminator') {
+            if (button.value == 'CE') {
+                myArray = [resultText,equalSign,numTwo,operand,numOne];
+                for (i=0;i<5;i++) {
+                    if (myArray[i] != '') {
+                        switch(i) {
+                            case 0:
+                                resultText = ''
+                                numTwo = numTwo.substring(0,numTwo.length-1);
+                                break;
+                            case 1:
+                                equalSign = ''
+                                break;
+                            case 2:
+                                numTwo = numTwo.substring(0,numTwo.length-1);
+                                break;
+                            case 3:
+                                operand = '';
+                                break;
+                            case 4:
+                                numOne = numOne.substring(0,numOne.length-1);
+                                break;
+                        }
+                        break
                     }
                 }
+            } else if (button.value == 'AC') {
+                resultText = '0'; equalSign = ''; numTwo = '';operand = ''; numOne = '';
             }
-            operations.innerHTML = operationText;
-            resultDiv.innerHTML = resultText;
+            operatorState = 0;
+            operationText = `${numOne} ${operand} ${numTwo} ${equalSign}`;
+        } else if(button.value == '=') {
+            equalSign = button.value;
+            let result = operator(numOne,numTwo,operand);
+            resultText = result;
+            operatorState = 0;
         }
-
-        if (resultText !== '') {
-            if (resultText !='ERR') operationText = resultText;
-            else if(resultText == 'ERR') {
-                operationText = '';
-            }
-            resultText = '';
-            calculator();
-        } else {
-            calculator();
-        }
+        operationDiv.innerHTML = operationText;
+        resultDiv.innerHTML = resultText;
     });
 });
