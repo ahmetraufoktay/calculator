@@ -30,9 +30,7 @@ function operator(a,b,operator) {
 }
 
 //division symbol ÷
-let numOne = '',numTwo = '',sign = '';
-let operationtext = `${numOne} ${sign} ${numTwo}`
-
+let operationtext = ''
 const operations = document.getElementById('operations');
 operations.innerHTML = operationtext;
 
@@ -40,9 +38,12 @@ const buttons = document.querySelectorAll('button');
 buttons.forEach((button)=>{
     button.addEventListener('click',()=>
     {
-        if (numOne === '') numOne = button.value;
-        else numTwo = button.value;
-        operationtext = `${numOne} ${sign} ${numTwo}`
+        if (button.className!='operator') {
+            operationtext += button.value;
+        }
+        else {
+            operationtext += ` ${button.value} `;
+        }
         operations.innerHTML = operationtext;
     });
 });
