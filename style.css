@@ -18,7 +18,7 @@ body {
     justify-content:space-evenly;
 
     background-color: #bcc399;
-    margin: 10% 5% 5% 5%;
+    margin: 48px 24px 24px 24px;
     height: 100px;
 
     font-family: "Orbitron";
@@ -40,6 +40,9 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    height: 40px;
+    width: 80px;
     background-color: #cecece;
 
     border-style: none;
@@ -52,6 +55,11 @@ button {
 #buttoncontainer {
     display: flex;
     justify-content: center;
+    gap: 16px;
+    
+    height:440px;
+    width: 432px;
+    margin-left: 20px;
 }
 #columnone,
 #columntwo,
@@ -59,9 +67,10 @@ button {
 #columnfour {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 #buttonplus {
     display: flex;
-    flex-grow: 1;
+    flex-grow: 0.36;
 }
