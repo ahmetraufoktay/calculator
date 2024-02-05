@@ -28,3 +28,21 @@ function operator(a,b,operator) {
             return mod(a,b);
     }   
 }
+
+//division symbol ÷
+let numOne = '',numTwo = '',sign = '';
+let operationtext = `${numOne} ${sign} ${numTwo}`
+
+const operations = document.getElementById('operations');
+operations.innerHTML = operationtext;
+
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button)=>{
+    button.addEventListener('click',()=>
+    {
+        if (numOne === '') numOne = button.value;
+        else numTwo = button.value;
+        operationtext = `${numOne} ${sign} ${numTwo}`
+        operations.innerHTML = operationtext;
+    });
+});
