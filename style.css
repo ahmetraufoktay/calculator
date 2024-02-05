@@ -1,0 +1,62 @@
+/* font family: orbitron*/
+body {
+    display: flex;
+    justify-content: center;
+}
+#container {
+    background-color: #444;
+    width: 480px;
+    height: 700px;
+    border:rgb(36, 35, 35) solid 5px;
+    border-radius: 30px;
+}
+
+#resultcontainer {
+    display: flex;
+    flex-direction: column;
+    background-color: #bcc399;
+    margin: 10% 5% 5% 5%;
+    height: 100px;
+
+    font-family: "Orbitron";
+    border: #c3c3c3;
+    border-width: 20px;
+    border-radius: 20px;
+    border-style:ridge;
+}
+#operations {
+
+}
+#result {
+
+}
+
+/*Button menu*/
+button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #cecece;
+
+    border-style: none;
+    font-family: "Orbitron";
+}
+#buttonAC,#buttonCE {
+    background-color: #4150dd;
+}
+
+#buttoncontainer {
+    display: flex;
+    justify-content: center;
+}
+#columnone,
+#columntwo,
+#columnthree,
+#columnfour {
+    display: flex;
+    flex-direction: column;
+}
+#buttonplus {
+    display: flex;
+    flex-grow: 1;
+}
