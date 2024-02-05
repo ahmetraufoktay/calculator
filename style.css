@@ -42,10 +42,12 @@ button {
     align-items: center;
 
     height: 65px;
-    width: 80px;
+    width: 95px;
     background-color: #cecece;
 
-    border-style: none;
+    border-color: #eddede;
+    border-width: 3px;
+    border-style:double;
     border-radius: 10px;
 
     color: #3D3D3D;
@@ -53,9 +55,16 @@ button {
     font-size: 40px;
     font-weight: bolder;
 }
+button:hover {
+    filter: brightness(85%);
+}
+button:active {
+    transform: scale(0.9,0.9);
+}
 #buttonAC,#buttonCE {
     color: white;
     background-color: #4150dd;
+    border-color: #3361ab;
 }
 
 #buttoncontainer {
@@ -64,8 +73,6 @@ button {
     gap: 16px;
     
     height:440px;
-    width: 432px;
-    margin-left: 20px;
 }
 #columnone,
 #columntwo,
