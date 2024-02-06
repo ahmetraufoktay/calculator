@@ -129,7 +129,7 @@ window.addEventListener('keydown',(e)=> {
     }else if (keyPressed == 'Enter') {
         let targetButton = document.querySelector('button[value="="]');
         targetButton.click();
-    }else if (/[\d\+\-\.]/.test(keyPressed)) {
+    }else if (/[\d\+\%\-\.]/.test(keyPressed)) {
         let targetButton = document.querySelector('button[value="' + keyPressed + '"]');
         targetButton.click();
     }
