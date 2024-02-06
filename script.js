@@ -42,15 +42,17 @@ function operator(a, b, operator) {
     }
 }
 
+//calculator part
 let numOne='',operand = '',numTwo='',equalSign = '';
 let operationText = ``; 
 let operatorState = 0;
 let resultText = '0';
 const operationDiv = document.getElementById('operations');
 const resultDiv = document.getElementById('result');
-
 resultDiv.innerHTML = resultText;
+
 const buttons = document.querySelectorAll('button');
+
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
         if (button.className == 'operator') {
@@ -77,41 +79,59 @@ buttons.forEach((button) => {
         } else if(button.className == 'terminator') {
             if (button.value == 'CE') {
                 myArray = [resultText,equalSign,numTwo,operand,numOne];
-                for (i=0;i<5;i++) {
-                    if (myArray[i] != '') {
-                        switch(i) {
-                            case 0:
-                                resultText = ''
-                                numTwo = numTwo.substring(0,numTwo.length-1);
-                                break;
-                            case 1:
-                                equalSign = ''
-                                break;
-                            case 2:
-                                numTwo = numTwo.substring(0,numTwo.length-1);
-                                break;
-                            case 3:
-                                operand = '';
-                                break;
-                            case 4:
-                                numOne = numOne.substring(0,numOne.length-1);
-                                break;
-                        }
-                        break
-                    }
+                if (resultText != '') {
+                    resultText = '';
+                    numTwo = numTwo.substring(0,numTwo.length-1);
+                } else if (numTwo != '') {
+                    numTwo = numTwo.substring(0,numTwo.length-1);
+                } else if (operand != '') {
+                    operand = '';
+                } else if (numOne != '') {
+                    numOne = numOne.substring(0,numOne.length-1);
                 }
             } else if (button.value == 'AC') {
                 resultText = '0'; equalSign = ''; numTwo = '';operand = ''; numOne = '';
             }
             operatorState = 0;
             operationText = `${numOne} ${operand} ${numTwo} ${equalSign}`;
-        } else if(button.value == '=') {
-            equalSign = button.value;
-            let result = operator(numOne,numTwo,operand);
-            resultText = result;
-            operatorState = 0;
         }
+        if(button.value == '=') {
+            equalSign = button.value;
+            if (numTwo != '' && operand != '') {
+                let result = operator(numOne,numTwo,operand);
+                resultText = result;
+            }
+        }
+        if (button.value != '=') {
+            equalSign = '';
+        }
+        operationText = `${numOne} ${operand} ${numTwo} ${equalSign}`;
         operationDiv.innerHTML = operationText;
         resultDiv.innerHTML = resultText;
     });
 });
+
+//connecting keyboard with calculator
+window.addEventListener('keydown',(e)=> {
+    let keyPressed = e.key;
+    if (keyPressed == 'Escape') {
+        let targetButton = document.querySelector('.terminator[value="AC"]');
+        targetButton.click();
+    } else if (keyPressed == 'Backspace') {
+        let targetButton = document.querySelector('.terminator[value="CE"]');
+        targetButton.click();
+    } else if (keyPressed == '/') {
+        let targetButton = document.querySelector('.operator[value="÷"]');
+        targetButton.click();
+    }else if (keyPressed == '*') {
+        let targetButton = document.querySelector('.operator[value="x"]');
+        targetButton.click();
+    }else if (keyPressed == 'Enter') {
+        let targetButton = document.querySelector('button[value="="]');
+        targetButton.click();
+    }else if (/[\d\+\-\.]/.test(keyPressed)) {
+        let targetButton = document.querySelector('button[value="' + keyPressed + '"]');
+        targetButton.click();
+    }
+    console.log(e.key);
+}); 
