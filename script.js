@@ -81,13 +81,16 @@ buttons.forEach((button) => {
                 myArray = [resultText,equalSign,numTwo,operand,numOne];
                 if (resultText != '') {
                     resultText = '';
-                    numTwo = numTwo.substring(0,numTwo.length-1);
+                    numTwo = Math.floor(numTwo/10);
+                    if (numTwo == 0) numTwo = '';
                 } else if (numTwo != '') {
-                    numTwo = numTwo.substring(0,numTwo.length-1);
+                    numTwo = Math.floor(numTwo/10);
+                    if (numTwo == 0) numTwo = '';
                 } else if (operand != '') {
                     operand = '';
                 } else if (numOne != '') {
-                    numOne = numOne.substring(0,numOne.length-1);
+                    numOne = Math.floor(numOne/10);
+                    if (numOne == 0) numOne = ' ';
                 }
             } else if (button.value == 'AC') {
                 resultText = '0'; equalSign = ''; numTwo = '';operand = ''; numOne = '';
